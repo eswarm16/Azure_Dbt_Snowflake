@@ -1,0 +1,9 @@
+sources:
+  - name: public
+    database: AZURE_DBT_SNOWFLAKE  
+    schema: PUBLIC  
+    tables:
+      - name: Customers
+      - name: Drivers
+      - name: Location
+      - name: Trips

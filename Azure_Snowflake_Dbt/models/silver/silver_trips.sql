@@ -1,0 +1,51 @@
+{{
+    config(
+        materialized = 'incremental',
+        unique_key  = 'TRIP_ID'
+    )
+}}
+
+SELECT
+
+    CAST(TRIP_ID AS BIGINT) AS TRIP_ID,
+    CAST(DRIVER_ID AS BIGINT) AS DRIVER_ID,
+    CAST(CUSTOMER_ID AS BIGINT) AS CUSTOMER_ID,
+    CAST(VEHICLE_ID AS BIGINT) AS VEHICLE_ID,
+
+    -- Trip Timings
+    CAST(TRIP_START_TIME AS TIMESTAMP) AS TRIP_START_TIME,
+    CAST(TRIP_END_TIME AS TIMESTAMP) AS TRIP_END_TIME,
+
+    -- Distance Details
+    CAST(DISTANCE_KM AS NUMERIC(10,2)) AS DISTANCE,
+
+    CASE
+        WHEN DISTANCE_KM < 5  THEN 'SHORT'
+        WHEN DISTANCE_KM < 20 THEN 'MEDIUM'
+        ELSE 'LONG'
+    END AS DISTANCE_CATEGORY,
+
+    -- Duration
+    DATEDIFF(
+        MINUTE,
+        CAST(TRIP_START_TIME AS TIMESTAMP),
+        CAST(TRIP_END_TIME AS TIMESTAMP)
+    ) AS DURATION_MINUTES,
+
+    -- Fare Details
+    CAST(FARE_AMOUNT AS NUMERIC(10,2)) AS AMOUNT,
+
+    CASE
+        WHEN FARE_AMOUNT < 10 THEN 'LOW'
+        WHEN FARE_AMOUNT < 30 THEN 'MID'
+        ELSE 'HIGH'
+    END AS FARE_TIER,
+
+    -- Payment & Status
+    {{ clean_string('PAYMENT_METHOD') }} AS PAYMENT_METHOD,
+    {{ clean_string('TRIP_STATUS') }} AS TRIP_STATUS,
+
+    CAST(LAST_UPDATED_TIMESTAMP AS TIMESTAMP) AS LAST_UPDATED
+
+FROM
+    {{ ref('bronze_trips') }}
