@@ -1,0 +1,23 @@
+{{
+  config(
+    materialized = 'ephemeral',
+    )
+}}
+
+WITH customers AS 
+(
+    SELECT DISTINCT
+        CUSTOMER_ID,
+        NAME AS CUSTOMER_NAME,
+        PHONE AS CUSTOMER_PHONE,
+        EMAIL AS CUSTOMER_EMAIL,
+        EMAIL_VALID AS CUSTOMER_EMAIL_VALID,
+        CITY AS CUSTOMER_CITY,
+        SIGNUP_DATE AS CUSTOMER_SIGNUP_DATE,
+        SIGNUP_YEAR AS CUSTOMER_SIGNUP_YEAR,
+        SIGNUP_MONTH AS CUSTOMER_SIGNUP_MONTH,
+        LAST_UPDATED AS CUSTOMER_LAST_UPDATED 
+    FROM
+        {{ ref('silver_customers') }}
+)
+SELECT * FROM customers

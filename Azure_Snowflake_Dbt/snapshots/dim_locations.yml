@@ -1,0 +1,10 @@
+snapshots:
+    - name: dim_locations
+      relation: ref('locations')
+      config:
+        schema: gold
+        database: AZURE_DBT_SNOWFLAKE
+        unique_key: LOCATION_ID
+        strategy: timestamp
+        updated_at: LOCATION_LAST_UPDATED
+        dbt_valid_to_current: "to_date('9999-12-31')"

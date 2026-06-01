@@ -66,7 +66,7 @@ CREATE OR REPLACE TABLE Trips
 
     trip_end_time TIMESTAMP,
 
-    location    VARCHAR(100),
+    location_id INT,
 
     distance_km DECIMAL(10,2),
 
@@ -84,5 +84,9 @@ CREATE OR REPLACE TABLE Trips
 
     CONSTRAINT fk_customer
         FOREIGN KEY (customer_id)
-        REFERENCES Customers(customer_id)
+        REFERENCES Customers(customer_id),
+
+    CONSTRAINT fk_location
+        FOREIGN KEY (location_id)
+        REFERENCES Location(location_id)    
 );

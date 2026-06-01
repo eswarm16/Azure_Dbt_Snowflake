@@ -1,7 +1,7 @@
 {% set congig = [
     {
         "ref": "silver_trips",
-        "columns" : "trips.TRIP_ID, trips.LOCATION AS TRIP_LOCATION, trips.TRIP_START_TIME, trips.TRIP_END_TIME, trips.DISTANCE AS TRIP_DISTANCE, trips.DISTANCE_CATEGORY AS TRIP_DISTANCE_CATEGORY, trips.DURATION_MINUTES AS TRIP_DURATION_MINUTES, trips.AMOUNT AS TRIP_AMOUNT, trips.FARE_TIER AS TRIP_FARE_TIER, trips.PAYMENT_METHOD AS TRIP_PAYMENT_METHOD, trips.TRIP_STATUS, trips.LAST_UPDATED AS TRIP_LAST_UPDATED ",
+        "columns" : "trips.TRIP_ID, trips.LOCATION_ID AS TRIP_LOCATION_ID, trips.TRIP_START_TIME, trips.TRIP_END_TIME, trips.DISTANCE AS TRIP_DISTANCE, trips.DISTANCE_CATEGORY AS TRIP_DISTANCE_CATEGORY, trips.DURATION_MINUTES AS TRIP_DURATION_MINUTES, trips.AMOUNT AS TRIP_AMOUNT, trips.FARE_TIER AS TRIP_FARE_TIER, trips.PAYMENT_METHOD AS TRIP_PAYMENT_METHOD, trips.TRIP_STATUS, trips.LAST_UPDATED AS TRIP_LAST_UPDATED ",
         "alias": "trips"
     },
 
@@ -23,7 +23,7 @@
         "ref": "silver_locations",
         "columns" : "locations.LOCATION_ID,locations.CITY AS LOCATION_CITY,locations.STATE AS LOCATION_STATE, locations.COUNTRY AS LOCATION_COUNTRY, locations.LATITUDE, locations.LONGITUDE, locations.HEMISPHERE, locations.LAST_UPDATED AS LOCATION_LAST_UPDATED ",
         "alias": "locations",
-        "join_condition": "locations.CITY = trips.LOCATION"
+        "join_condition": "locations.LOCATION_ID = trips.LOCATION_ID"
 
     }
 ] %} 
@@ -62,12 +62,12 @@ SELECT
     DRIVER_PHONE,
     DRIVER_RATING,
     RATING_TIER,
+    LOCATION_CITY,
     LOCATION_STATE,
     LOCATION_COUNTRY,
     LATITUDE,
     LONGITUDE,
     HEMISPHERE,
-    TRIP_LOCATION,
     TRIP_START_TIME,
     TRIP_END_TIME,
     TRIP_DISTANCE,
