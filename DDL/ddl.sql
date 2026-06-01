@@ -66,9 +66,7 @@ CREATE OR REPLACE TABLE Trips
 
     trip_end_time TIMESTAMP,
 
-    start_location VARCHAR(100),
-
-    end_location VARCHAR(100),
+    location    VARCHAR(100),
 
     distance_km DECIMAL(10,2),
 
