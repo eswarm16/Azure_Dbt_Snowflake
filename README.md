@@ -4,7 +4,7 @@ An end-to-end data engineering project that ingests data from **Azure Storage** 
 ---
 
 # Architecture
----
+
 ## Data Flow
 
 ```
