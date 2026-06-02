@@ -127,6 +127,9 @@ Source (Snowflake: PUBLIC schema)
 ## Gold Layer
 
 ### OBT — One Big Table
+
+**File:** `obt.sql`
+
 **Purpose:** Fully denormalised wide table joining all four silver tables into a single model. One row per trip. Used for analytics and as the source for the fact table.
 
 **Joins:**
@@ -137,6 +140,8 @@ silver_trips
     LEFT JOIN silver_locations  ON trips.LOCATION_ID = locations.LOCATION_ID
 ```
 ### Fact Table
+
+**File:** `fact.sql`
 
 **Purpose:** Transaction-level fact table for analytical queries. Reads from OBT.
 
